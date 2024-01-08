@@ -1,0 +1,48 @@
+<router-outlet></router-outlet>
+<div class="form-container">
+  <h1>Task Assignment</h1>
+<form (ngSubmit)="onSubmit()" #myForm="ngForm">
+  <div class="form-group">
+    <label for="name"> Task Name:</label>
+    <input type="text" id="name" name="name" ngModel required [(ngModel)]="taskModel.taskName">
+    <div *ngIf="myForm.controls['name'].invalid && myForm.controls['name'].touched">
+      Name is required.
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description"  [(ngModel)]="taskModel.description">
+    
+  </div>
+
+  <div class="form-group">
+    <label>Employee Name:</label>
+    <select  (change)="changeTask($event)" [(ngModel)]="selectedemployee">
+      
+      <option  *ngFor="let emp of employee" value="{{emp.employeeId}}">{{emp.employeeName}}</option>
+    </select>
+  
+  </div>
+
+  <button type="submit" [disabled]="myForm.invalid">Submit</button>
+</form>
+</div>
+<table class="table-container">
+  <thead>
+    <tr>
+      <th>Task Name</th>
+      <th>Description</th>
+      <th>Assigned To</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{task.taskName}}</td>
+      <td>{{task.descriptionName}}</td>
+      <td>{{task.employeeId}}</td>
+  </tr>
+    <!-- Add more rows as needed -->
+  </tbody>
+</table>
+
